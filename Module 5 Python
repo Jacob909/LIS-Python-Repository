@@ -1,0 +1,21 @@
+# 1 Write a Python program to execute a string containing Python code.
+
+A = 24
+B = 36
+C = 42
+
+def multiplier(a, b, c):
+    d = "a * b * c"
+    d = eval(d)
+    print("The value of a * b * c is ", d)
+
+multiplier(A,B,C)
+
+# 2 Write a Python function to insert a string in the middle of a string.
+logos = "I enjoy quite a lot."
+inter = "pizza"
+place = 7
+def insert(sTring, words, x):
+     print(sTring[:x] + " " + words + " " + sTring[x:])
+
+insert(logos, inter, place)
