@@ -1,0 +1,44 @@
+# Import modules
+from math import sqrt
+
+class Rectangle(object):
+    """A class to manufacture rectangle objects"""
+
+    def __init__(self, width, height, x, y):
+        """Initialize rectangle at posn, with width w, height h"""
+        r = self
+        r.corner_x = x
+        r.corner_y = y
+        r.width = width
+        r.height = height
+
+    def __str__(rect):
+        return rect.corner_x, rect.corner_y, rect.width, rect.height
+
+    # Str Rectangle
+    def str_rectangle(rect):
+        print(rect.corner_x, rect.corner_y, rect.width, rect.height)
+
+    # Shift Rectangle
+    def shift_rectangle(x, dx, dy):
+        x.corner_x += dx
+        x.corner_y += dy
+
+    # Offset Rectangle
+    def offset_rectangle(rect, dx, dy):
+        Old = rect
+        x = Old.corner_x + dx
+        y = Old.corner_y + dy
+        r = Rectangle(Old.width, Old.height, x, y)
+        return r
+
+
+r1 = Rectangle(10, 20, 30, 40)
+r1.str_rectangle()
+r1.shift_rectangle(-10, -20)
+r2 = r1.offset_rectangle(100, 200)
+r2.str_rectangle()
+
+r2 = r1.offset_rectangle(100, 100)
+r1.str_rectangle()  # should be same as previous
+r2.str_rectangle()
