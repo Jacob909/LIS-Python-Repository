@@ -1,0 +1,33 @@
+#Copy Data
+i = n
+# Expand on it
+for i in itertools.count(10,10):
+    if i == 100:
+        break
+    else:
+        print(i, end = " ")
+
+print("\n")
+#Copy Data
+i = n
+count = 0
+# Next Function
+for i in itertools.cycle('AB'):
+    if count > 30:
+        break
+    else:
+        print(i, end = " ")
+        count += 1
+
+print("\n")
+# Copy Data
+i = n
+# Next Function
+print("Print I 6 times.")
+print(list(itertools.repeat(i,6)))
+
+print("\n")
+#Copy Data
+i = n
+# Next Function
+print(list(map(sum, zip([10, 20, 30], [40, 50, 60]))))
