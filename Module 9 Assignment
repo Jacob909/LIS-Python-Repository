@@ -1,0 +1,56 @@
+# Import libraries
+import itertools
+import unittest
+# Create Data set
+n = 10
+
+def iteration(n):
+    #Copy Data
+    i = n
+    # Use first iterator function type
+    for i in itertools.count():
+        if 9 < i < 31:
+            print(i)
+
+            if i == 30:
+                break
+
+    #Copy Data
+    i = n
+    # Expand on it
+    for i in itertools.count(10,10):
+        if i == 100:
+            break
+        else:
+            print(i, end = " ")
+
+    print("\n")
+    #Copy Data
+    i = n
+    count = 0
+    # Next Function
+    for i in itertools.cycle('AB'):
+        if count > 30:
+            break
+        else:
+            print(i, end = " ")
+            count += 1
+
+    print("\n")
+    # Copy Data
+    i = n
+    # Next Function
+    print("Print I 6 times.")
+    print(list(itertools.repeat(i,6)))
+
+    print("\n")
+    #Copy Data
+    i = n
+    # Next Function
+    print(list(map(sum, zip([10, 20, 30], [40, 50, 60]))))
+
+class testIterator(unittest.TestCase):
+    def testIteration(self):
+        actual = iteration(10)
+        expected = 10
+        self.assertEqual(actual,expected)
