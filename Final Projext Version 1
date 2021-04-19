@@ -1,0 +1,180 @@
+# Libraries
+import random
+import matplotlib.pyplot as plt
+import unittest
+
+
+
+# Character Class
+class Character:
+    def __init__(self, Name, Race, Class, Background, StatMethod):
+        # Character Name
+        self.Name = Name
+        # Character Race
+        self.Race = Race
+
+        # Character Class
+        self.Class = Class
+
+        # Character Background
+        self.Background = Background
+        # Character Stat Generation Method
+        self.StatMethod = StatMethod
+
+        # Character Strength
+        self.STR = 0
+
+        # Character Constitution
+        self.CON = 0
+
+        # Character Dexterity
+        self.DEX = 0
+
+        # Character Wisdom
+        self.WIS = 0
+
+        # Character Intelligence
+        self.INT = 0
+
+        # Character Charisma
+        self.CHA = 0
+
+    # Set Race function, modifies statistics appropriately.
+    def SetRace(self):
+        if self.Race == "Human":
+            self.STR = 1
+            self.CON = 1
+            self.DEX = 1
+            self.WIS = 1
+            self.INT = 1
+            self.CHA = 1
+        if self.Race == "Dwarf":
+            self.CON = 2
+        if self.Race == "Elf":
+            self.DEX = 2
+        if self.Race == "Orc":
+            self.STR = 2
+            self.CON = 1
+
+    # Generate Statistics 
+    def StatGen(self):
+        if self.StatMethod == "Random":
+            def NumGen():
+                a = random.randint(1, 6)
+                b = random.randint(1, 6)
+                c = random.randint(1, 6)
+                d = random.randint(1, 6)
+                e = min(a, b, c, d)
+                f = a + b + c + d - e
+                return(f)
+            self.STR = self.STR + NumGen()
+            self.CON = self.CON + NumGen()
+            self.DEX = self.DEX + NumGen()
+            self.WIS = self.WIS + NumGen()
+            self.INT = self.INT + NumGen()
+            self.CHA = self.CHA + NumGen()
+        else:
+            # Standard Array is 15, 14, 13, 12, 10, and 8. These have been assorted to best suit the classes. 
+            if self.StatMethod != "Standard Array":
+                print("The Stat method is neither Standard Array or Random. These are the two methods, please try again.")
+            if self.StatMethod == "Standard Array" and self.Class == "Fighter":
+                self.STR = 15
+                self.CON = 13
+                self.DEX = 14
+                self.WIS = 8
+                self.INT = 12
+                self.CHA = 10
+            if self.StatMethod == "Standard Array" and self.Class == "Wizard":
+                self.STR = 8
+                self.CON = 10
+                self.DEX = 13
+                self.WIS = 14
+                self.INT = 15
+                self.CHA = 12
+            if self.StatMethod == "Standard Array" and self.Class == "Ranger":
+                self.STR = 13
+                self.CON = 10
+                self.DEX = 15
+                self.WIS = 14
+                self.INT = 12
+                self.CHA = 8
+            if self.StatMethod == "Standard Array" and self.Class == "Cleric":
+                self.STR = 14
+                self.CON = 10
+                self.DEX = 12
+                self.WIS = 15
+                self.INT = 13
+                self.CHA = 8
+
+    # Build Character with User Input
+    def CharGen(self):
+        # Get Inputs
+        print("Input Character Name.")
+        self.Name = input('Enter Character Name: ',)
+
+        print("Input Race. Options are Human, Dwarf, Elf, and Orc")
+        self.Race = input('Enter Character Race: ',)
+
+        print("Input Class. Options are Fighter, Wizard, Ranger, and Cleric")
+        self.Class = input('Enter Character Class: ',)
+
+        print("Input Background. Anything is allowed.")
+        self.Background = input('Input Background: ',)
+
+        print("Input Statistic Generation Method. Either Select Random, or Standard Array")
+        self.StatMethod = input('Input Stat Method: ',)
+
+        # Set Character Up
+        Character.SetRace(self)
+        Character.StatGen(self)
+
+        # Print Character Info
+        print("Name: ", self.Name)
+        print("Race: ", self.Race)
+        print("Class: ", self.Class)
+        print("Background: ", self.Background)
+        print("STR: ", self.STR)
+        print("DEX: ", self.DEX)
+        print("CON: ", self.CON)
+        print("WIS: ", self.WIS)
+        print("INT: ", self.INT)
+        print("CHA: ", self.CHA)
+    
+    # Visualize Character
+    def statViz(self):
+        fig, ax = plt.subplots()
+
+        data = {
+            "STR":self.STR,
+            "DEX":self.DEX,
+            "CON":self.CON,
+            "WIS":self.WIS,
+            "INT":self.INT,
+            "CHA":self.CHA
+        }
+        x_axis_data = data.keys()
+        y_axis_data = data.values()
+
+        ax.bar(x_axis_data, y_axis_data)
+        ax.set(ylim=[0,20],
+            ylabel= "Value",
+            xlabel= "Stats",
+            title = self.Name)
+
+        plt.show()
+
+# Execution
+Kal = Character("Kal", "Orc", "Fighter", "Outlander", "Random")
+Character.CharGen(Kal)
+Character.statViz(Kal)
+
+#Test
+Tst = Character("Kal", "Orc", "Fighter", "Outlander", "Standard Array")
+
+class MyTest(unittest.TestCase):
+    def test(self):
+        self.assertEqual(sum(self.STR, self.DEX, self.CON, self.WIS, self.INT, self.CHA), 75)
+
+if __name__ == '__main__':
+    MyTest.test(Tst)
+    print("Stats are correct")
