@@ -171,10 +171,11 @@ Character.statViz(Kal)
 #Test
 Tst = Character("Kal", "Orc", "Fighter", "Outlander", "Standard Array")
 
+# This test is deisgned to make sure that the Standard Array is working Properly. If it is, the stats + the Orc Stat Bonuses should equal 75.
 class MyTest(unittest.TestCase):
     def test(self):
         self.assertEqual(sum(self.STR, self.DEX, self.CON, self.WIS, self.INT, self.CHA), 75)
-
+        
 if __name__ == '__main__':
     MyTest.test(Tst)
     print("Stats are correct")
